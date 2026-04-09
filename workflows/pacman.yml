@@ -1,0 +1,30 @@
+name: Generate Pacman Graph
+
+on:
+schedule:
+- cron: "0 */12 * * *"
+workflow_dispatch:
+
+jobs:
+build:
+runs-on: ubuntu-latest
+
+```
+steps:
+  - uses: actions/checkout@v3
+
+  - name: Generate Pacman Contribution Graph
+    uses: Platane/snk/svg-only@v3
+    with:
+      github_user_name: pratikk106
+      outputs: |
+        dist/pacman.svg
+
+  - name: Push SVG to repo
+    uses: crazy-max/ghaction-github-pages@v3
+    with:
+      target_branch: main
+      build_dir: dist
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+```
